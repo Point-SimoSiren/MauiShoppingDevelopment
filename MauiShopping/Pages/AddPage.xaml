@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiShopping.Pages.AddPage"
+             Title="AddPage">
+    <StackLayout>
+
+        <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+            <Label Text="Simon ja epun kauppalista" HorizontalTextAlignment="Center"
+                   TextColor="Orange" FontSize="24"/>
+        </Frame>
+
+        <Entry x:Name="ItemField" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Tavara" />
+        <Entry x:Name="AmountField" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Lukumäärä" />
+        <Button x:Name="AddBtn" Clicked="AddBtn_Clicked" FontSize="26" Text="Tallenna" Padding="40" Margin="20 ,50,20,20" />
+
+
+
+        <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+            <Label Text="Shopping made easy" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="18"/>
+        </Frame>
+
+    </StackLayout>
+</ContentPage>

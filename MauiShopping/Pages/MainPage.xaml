@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiShopping.Pages.MainPage"
+             Title="MainPage">
+
+    <ScrollView>
+    
+        <StackLayout>
+
+            <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+                <Label Text="Kauppalista" HorizontalTextAlignment="Center"
+                   TextColor="Orange" FontSize="24"/>
+            </Frame>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Valitse tavara ja paina ->" FontSize="14" Margin="3, 5, 2, 0"/>
+                <Button x:Name="kerätty_nappi" Text="kerätty" Clicked="kerätty_nappi_Clicked" Margin="10,10,10,10" FontSize="26"  Padding="40, 20, 40, 20"  BackgroundColor="GreenYellow" TextColor="Black"/>
+            </StackLayout>
+
+            <ListView x:Name="itemList" SelectionMode="Single" Margin="20, 0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <ContentView Padding="3">
+                                <Frame BorderColor="Silver" Padding="2">
+
+                                    <StackLayout BackgroundColor="AliceBlue" Orientation="Horizontal" Padding="0, 2">
+
+
+                                        <Label Text="{Binding Item}"
+                                              
+                                               TextColor="Purple"
+                                               FontSize="22"
+                                               VerticalOptions="StartAndExpand" 
+                                           Margin="20, 0, 0, 0"/>
+
+
+                                        <Label Text="{Binding Amount}"
+                                        
+                                         TextColor="Purple"
+                                           FontSize="22"
+                                           VerticalOptions="StartAndExpand"
+                                            HorizontalOptions="Center"
+                                             Margin="5, 0, 0, 0"/>
+
+
+                                        <Label Text="KPL"
+                                        
+                                         TextColor="Purple"
+                                           FontSize="22"
+                                           VerticalOptions="StartAndExpand"
+                                            HorizontalOptions="Center"
+                                             Margin="5, 0, 0, 0"/>
+
+                                    </StackLayout>
+                                </Frame>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="addPageBtn" Text="Lisää uusi tavara" Padding="20" FontSize="26" Clicked="addPageBtn_Clicked" Margin="30,10,30,40" />
+
+            <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+                <Label Text="Shopping made easy" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="18"/>
+            </Frame>
+
+        </StackLayout>
+
+    </ScrollView>
+
+</ContentPage>
