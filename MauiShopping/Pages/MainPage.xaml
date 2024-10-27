@@ -1,24 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiShopping.Pages.MainPage"
-             Title="MainPage">
+             x:Class="MauiShopping.Pages.MainPage">
 
-    <ScrollView>
-    
-        <StackLayout>
+    <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
-            <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+        <Frame BackgroundColor="Black" Padding="20" CornerRadius="0">
                 <Label Text="Kauppalista" HorizontalTextAlignment="Center"
                    TextColor="Orange" FontSize="24"/>
-            </Frame>
+          </Frame>
 
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Valitse tavara ja paina ->" FontSize="14" Margin="3, 5, 2, 0"/>
-                <Button x:Name="kerätty_nappi" Text="kerätty" Clicked="kerätty_nappi_Clicked" Margin="10,10,10,10" FontSize="26"  Padding="40, 20, 40, 20"  BackgroundColor="GreenYellow" TextColor="Black"/>
-            </StackLayout>
+            
+            <Label x:Name="kerätty_label" Text="Valitse tavara listalta" FontSize="14" IsVisible="False" Margin="5, 5, 5, 5"/>
+            <Button x:Name="kerätty_nappi" Clicked="kerätty_nappi_Clicked" IsVisible="false" Margin="10,10,10,10" FontSize="24"  Padding="15, 15, 15, 15"  BackgroundColor="GreenYellow" TextColor="Black"/>
+            
 
-            <ListView x:Name="itemList" SelectionMode="Single" Margin="20, 0">
+        <Image Source="loading.gif" IsAnimationPlaying="False" x:Name="loadingAnouncement" MaximumWidthRequest="200" MaximumHeightRequest="200" />
+
+        <!-- Lisäyslomake joka on oletuksena piilossa ja näytetään kun halutaan lisätä tuotteita -->
+        <Entry x:Name="ItemField" IsVisible="False" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Tavara" />
+        <Entry x:Name="AmountField" IsVisible="False" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Lukumäärä" />
+        <Button x:Name="AddBtn" IsVisible="False" Clicked="AddBtn_Clicked" FontSize="26" Text="Tallenna" Padding="40" Margin="20 ,50,20,20" />
+        <!-- Lisäyslomake loppuu -->
+
+
+        <ScrollView MinimumHeightRequest="400">
+
+            <ListView x:Name="itemList" SelectionMode="Single" Margin="20, 0" ItemSelected="itemList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -62,14 +70,17 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button x:Name="addPageBtn" Text="Lisää uusi tavara" Padding="20" FontSize="26" Clicked="addPageBtn_Clicked" Margin="30,10,30,40" />
+        </ScrollView>
 
-            <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
-                <Label Text="Shopping made easy" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="18"/>
-            </Frame>
+            
+                <Button x:Name="addPageBtn" IsVisible="False" Text="Lisää uusi tavara" Padding="20" FontSize="26" Clicked="addPageBtn_Clicked" Margin="40,10,40,10" />
 
-        </StackLayout>
+                <Frame BackgroundColor="Black" Padding="40" CornerRadius="0" VerticalOptions="EndAndExpand">
+                    <Label Text="Sujuvaa ostosten hallintaa" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="18"/>
+                </Frame>
 
-    </ScrollView>
+            
+        </VerticalStackLayout>
+
 
 </ContentPage>
