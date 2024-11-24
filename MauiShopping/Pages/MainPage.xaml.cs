@@ -107,6 +107,7 @@ public partial class MainPage : ContentPage
         // Perustilassa näytettävät elementit piilotetaan kun ollaan lisäystilanteessa:
         addPageBtn.IsVisible = false;
         kerätty_nappi.IsVisible = false;
+        itemList.IsVisible = false;
     }
 
 
@@ -120,28 +121,35 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        else if (String.IsNullOrEmpty(AmountField.Text.ToString()))
-        {
-            await DisplayAlert("Tieto puuttuu", "Anna lukumäärä", "Ok");
-            return;
-        }
-
         else
         {
-            loadingAnouncement.IsVisible=true;
+            // Yritys saada näppäimistö piiloon
+            ItemField.Unfocus();
+            AmountField.Unfocus();
+            AddBtn.Unfocus();
+
+            loadingAnouncement.IsVisible=true; // Näytetään lataus spinneri
 
             apikey = DateTime.UtcNow.ToString("dd") + "abc";
 
-            Shoplist newItem = new Shoplist();
+            Shoplist newItem = new Shoplist(); // Luodaan uusi olio tallennusta varten
 
-            newItem.Item = ItemField.Text;
-            newItem.Amount = int.Parse(AmountField.Text);
+            newItem.Item = ItemField.Text; // Asetetaan olion Item ominaisuus
 
+            if (string.IsNullOrEmpty (AmountField.Text)) // Jos lukumäärää ei annettu se on 1
+            {
+                newItem.Amount = 1;
+            }
+            else
+            {
+                newItem.Amount = int.Parse(AmountField.Text);
+            }
+            
             // Muutetaan em. data objekti Jsoniksi
             var input = JsonConvert.SerializeObject(newItem);
-
             HttpContent content = new StringContent(input, Encoding.UTF8, "application/json");
 
+            // Lähetetään json objekti backendille http post -pyynnöllä
             HttpClient client = new();
             client.BaseAddress = new Uri("https://shoppingrestapibackend.azurewebsites.net");
             HttpResponseMessage res = await client.PostAsync("/api/shoplist/" + apikey, content);
@@ -155,6 +163,7 @@ public partial class MainPage : ContentPage
                 ItemField.IsVisible = false;
                 AmountField.IsVisible = false;
                 AddBtn.IsVisible = false;
+                itemList.IsVisible = true;
 
                 // Ladataan uusi tuotelistaus ja tässä metodissahan tarvittavat elementitkin otetaan taas näkyviin
                 LoadDataFromRestAPI();
