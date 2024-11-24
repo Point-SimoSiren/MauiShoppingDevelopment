@@ -11,6 +11,7 @@ public partial class MainPage : ContentPage
     string apikey = "";
 
     public MainPage()
+
     {
 
         InitializeComponent();
@@ -26,6 +27,7 @@ public partial class MainPage : ContentPage
     }
 
 
+    // LISTAN HAKEMINEN BACKENDISTÄ
     async void LoadDataFromRestAPI()
     {
         apikey = DateTime.UtcNow.ToString("dd") + "abc";
@@ -41,18 +43,25 @@ public partial class MainPage : ContentPage
 
         loadingAnouncement.IsVisible = false;
         addPageBtn.IsVisible = true;
-        kerätty_label.IsVisible = true;
         kerätty_nappi.IsVisible = true;
 
     }
 
 
+    // TUOTE POISTETAAN LISTALTA KUN SE ON POIMITTU
     private async void kerätty_nappi_Clicked(object sender, EventArgs e)
     {
         try
         {
             Shoplist? selected = itemList.SelectedItem as Shoplist;
-            bool answer = await DisplayAlert("Menikö oikein?", selected.Item + " kerätty?", "Yess! Kyllä meni!", "Ei, Yritän uusiksi");
+            
+            if (selected == null)
+            {
+                await DisplayAlert("Valinta puuttuu", "Valitse ensin poimittava tuote", "ok");
+                return;
+            }
+
+            bool answer = await DisplayAlert("Menikö oikein?", selected.Item + " kerätty?", "Yes! Kyllä meni!", "Ei, Yritän uusiksi");
             if (answer == false)
             {
                 return;
@@ -72,12 +81,18 @@ public partial class MainPage : ContentPage
             }
             else
             {
-                await DisplayAlert("Virhe ohjelmassa", "Ota yhteyttä kehittäjiin", "ok");
+                await DisplayAlert("Tilapäinen virhe", "Joku muu on saattanut poistaa tuotteen sen jälkeen kun listauksesi on viimeeksi päivittynyt?",
+                    "Lataa uudelleen");
+                LoadDataFromRestAPI();
+                loadingAnouncement.IsVisible = false;
             }
         }
         catch
         {
-            await DisplayAlert("Error", "Error", "ok");
+            await DisplayAlert("Tilapäinen virhe", "Joku muu on saattanut poistaa tuotteen sen jälkeen kun listauksesi on viimeeksi päivittynyt?",
+                  "Lataa uudelleen");
+            LoadDataFromRestAPI();
+            loadingAnouncement.IsVisible = false;
         }
     }
 
@@ -91,7 +106,6 @@ public partial class MainPage : ContentPage
 
         // Perustilassa näytettävät elementit piilotetaan kun ollaan lisäystilanteessa:
         addPageBtn.IsVisible = false;
-        kerätty_label.IsVisible = false;
         kerätty_nappi.IsVisible = false;
     }
 

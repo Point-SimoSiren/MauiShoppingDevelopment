@@ -3,41 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiShopping.Pages.MainPage">
 
-    <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+    <ScrollView MinimumHeightRequest="350">
+
+        <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
         <Frame BackgroundColor="Black" Padding="20" CornerRadius="0">
                 <Label Text="Kauppalista" HorizontalTextAlignment="Center"
                    TextColor="Orange" FontSize="24"/>
           </Frame>
 
-            
-            <Label x:Name="kerätty_label" Text="Valitse tavara listalta" FontSize="14" IsVisible="False" Margin="5, 5, 5, 5"/>
-            <Button x:Name="kerätty_nappi" Clicked="kerätty_nappi_Clicked" IsVisible="false" Margin="10,10,10,10" FontSize="24"  Padding="15, 15, 15, 15"  BackgroundColor="GreenYellow" TextColor="Black"/>
-            
 
-        <Image Source="loading.gif" IsAnimationPlaying="False" x:Name="loadingAnouncement" MaximumWidthRequest="200" MaximumHeightRequest="200" />
-
-        <!-- Lisäyslomake joka on oletuksena piilossa ja näytetään kun halutaan lisätä tuotteita -->
-        <Entry x:Name="ItemField" IsVisible="False" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Tavara" />
-        <Entry x:Name="AmountField" IsVisible="False" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Lukumäärä" />
-        <Button x:Name="AddBtn" IsVisible="False" Clicked="AddBtn_Clicked" FontSize="26" Text="Tallenna" Padding="40" Margin="20 ,50,20,20" />
-        <!-- Lisäyslomake loppuu -->
+                <Button x:Name="kerätty_nappi" Text="Valitse poimittava tuote listalta" Clicked="kerätty_nappi_Clicked" IsVisible="false" Margin="10,10,10,10" FontSize="24"  Padding="15, 15, 15, 15"  BackgroundColor="GreenYellow" TextColor="Black"/>
 
 
-        <ScrollView MinimumHeightRequest="400">
+                <Image Source="loading.gif" IsAnimationPlaying="False" x:Name="loadingAnouncement" MaximumWidthRequest="200" MaximumHeightRequest="200" />
 
-            <ListView x:Name="itemList" SelectionMode="Single" Margin="20, 0" ItemSelected="itemList_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-
-                            <ContentView Padding="3">
-                                <Frame BorderColor="Silver" Padding="2">
-
-                                    <StackLayout BackgroundColor="AliceBlue" Orientation="Horizontal" Padding="0, 2">
+                <!-- Lisäyslomake joka on oletuksena piilossa ja näytetään kun halutaan lisätä tuotteita -->
+                <Entry x:Name="ItemField" IsVisible="False" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Tavara" />
+                <Entry x:Name="AmountField" IsVisible="False" FontSize="26" Margin="30, 5, 5, 5" Placeholder="Lukumäärä" />
+                <Button x:Name="AddBtn" IsVisible="False" Clicked="AddBtn_Clicked" FontSize="26" Text="Tallenna" Padding="40" Margin="20 ,50,20,20" />
+                <!-- Lisäyslomake loppuu -->
 
 
-                                        <Label Text="{Binding Item}"
+
+                <ListView x:Name="itemList" SelectionMode="Single" Margin="20, 0" ItemSelected="itemList_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+
+                                <ContentView Padding="3">
+                                    <Frame BorderColor="Silver" Padding="2">
+
+                                        <StackLayout BackgroundColor="AliceBlue" Orientation="Horizontal" Padding="0, 2">
+
+
+                                            <Label Text="{Binding Item}"
                                               
                                                TextColor="Purple"
                                                FontSize="22"
@@ -45,7 +46,7 @@
                                            Margin="20, 0, 0, 0"/>
 
 
-                                        <Label Text="{Binding Amount}"
+                                            <Label Text="{Binding Amount}"
                                         
                                          TextColor="Purple"
                                            FontSize="22"
@@ -54,7 +55,7 @@
                                              Margin="5, 0, 0, 0"/>
 
 
-                                        <Label Text="KPL"
+                                            <Label Text="KPL"
                                         
                                          TextColor="Purple"
                                            FontSize="22"
@@ -62,25 +63,26 @@
                                             HorizontalOptions="Center"
                                              Margin="5, 0, 0, 0"/>
 
-                                    </StackLayout>
-                                </Frame>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                        </StackLayout>
+                                    </Frame>
+                                </ContentView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        </ScrollView>
+
+                <Button x:Name="addPageBtn" IsVisible="False" Text="Lisää uusi tavara" Padding="20" FontSize="26"
+                        Clicked="addPageBtn_Clicked" Margin="40,10,40,10" />
 
             
-                <Button x:Name="addPageBtn" IsVisible="False" Text="Lisää uusi tavara" Padding="20" FontSize="26" Clicked="addPageBtn_Clicked" Margin="40,10,40,10" />
-
-                <Frame BackgroundColor="Black" Padding="40" CornerRadius="0" VerticalOptions="EndAndExpand">
-                    <Label Text="Sujuvaa ostosten hallintaa" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="18"/>
+            <Frame BackgroundColor="Black" Padding="40, 10, 40, 100" VerticalOptions="EndAndExpand">
+                    <Label Text="Sujuvaa ostosten hallintaa" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="20"/>
                 </Frame>
 
             
         </VerticalStackLayout>
 
+        </ScrollView>
 
 </ContentPage>
